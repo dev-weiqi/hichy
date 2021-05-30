@@ -1,0 +1,3 @@
+include ':hichy'
+include ':app'
+rootProject.name = "hichy"
