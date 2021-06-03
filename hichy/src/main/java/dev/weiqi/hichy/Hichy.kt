@@ -12,9 +12,9 @@ import java.util.*
 
 object Hichy {
 
-    val activityStack = Stack<Activity>()
+    internal val activityStack = Stack<Activity>()
 
-    fun register(application: Application) {
+    fun init(application: Application) {
         application.registerActivityLifecycleCallbacks(object :
             Application.ActivityLifecycleCallbacks {
 
@@ -58,21 +58,20 @@ object Hichy {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle(context.packageName)
+            .setContentTitle("${context.packageName}'s Hichy is running.")
             .setOngoing(true)
             .setContentIntent(pendingIntent)
             .build()
-        val id = System.currentTimeMillis().toInt()
-        NotificationManagerCompat.from(context).notify(id, notification)
+        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
     }
 
     private fun createNotificationChannelIfNeeded(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_ID,
+                NOTIFICATION_CHANNEL_ID,
+                NOTIFICATION_CHANNEL_ID,
                 NotificationManager.IMPORTANCE_LOW
             )
             val notificationManager =
@@ -81,5 +80,7 @@ object Hichy {
         }
     }
 
-    private const val CHANNEL_ID = "hichy"
+    private const val NOTIFICATION_ID = 123
+    private const val NOTIFICATION_CHANNEL_ID = "hichy"
+
 }

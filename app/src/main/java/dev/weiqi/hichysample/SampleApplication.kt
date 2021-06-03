@@ -7,6 +7,6 @@ class SampleApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Hichy.register(this)
+        Hichy.init(this)
     }
 }

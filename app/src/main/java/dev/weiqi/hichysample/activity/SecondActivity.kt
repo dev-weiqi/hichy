@@ -1,7 +1,8 @@
-package dev.weiqi.hichysample
+package dev.weiqi.hichysample.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dev.weiqi.hichysample.R
 import dev.weiqi.hichysample.fragment.BlueFragment
 import dev.weiqi.hichysample.fragment.RedFragment
 

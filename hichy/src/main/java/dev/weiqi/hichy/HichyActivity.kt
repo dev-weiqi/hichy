@@ -1,9 +1,12 @@
 package dev.weiqi.hichy
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
@@ -12,9 +15,24 @@ internal class HichyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hichy)
+        val textView = TextView(this).apply {
+            setBackgroundColor(ContextCompat.getColor(this@HichyActivity, android.R.color.white))
+            setTextColor(ContextCompat.getColor(this@HichyActivity, android.R.color.black))
+            setTypeface(Typeface.MONOSPACE, Typeface.BOLD)
+            setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                resources.getDimension(R.dimen.hichy_dimen_20dp)
+            )
+            setHorizontallyScrolling(true)
+            movementMethod = ScrollingMovementMethod()
+        }
+        setContentView(textView)
         setFinishOnTouchOutside(true)
         val stack = Hichy.activityStack
+        if (stack.isEmpty()) {
+            finish()
+            return
+        }
         val sb = StringBuilder()
         stack.forEach { activity ->
             sb.append("\n")
@@ -29,20 +47,16 @@ internal class HichyActivity : AppCompatActivity() {
                         sb.append("\n")
                             .append("┗╸")
                             .append(simpleName)
-                        printChildFragmentRecursive(1, sb, fragment)
+                        appendChildFragmentNameRecursively(1, sb, fragment)
                     }
                 }
             }
         }
 
-        findViewById<TextView>(R.id.text_view_hierarchy)?.apply {
-            text = sb.toString()
-            movementMethod = ScrollingMovementMethod()
-            setHorizontallyScrolling(true)
-        }
+        textView.text = sb.toString()
     }
 
-    private fun printChildFragmentRecursive(
+    private fun appendChildFragmentNameRecursively(
         depth: Int,
         sb: StringBuilder,
         parentFragment: Fragment
@@ -57,7 +71,7 @@ internal class HichyActivity : AppCompatActivity() {
                 }
                 sb.append("┗╸")
                 sb.append(simpleName)
-                printChildFragmentRecursive(depth + 1, sb, childFragment)
+                appendChildFragmentNameRecursively(depth + 1, sb, childFragment)
             }
         }
     }

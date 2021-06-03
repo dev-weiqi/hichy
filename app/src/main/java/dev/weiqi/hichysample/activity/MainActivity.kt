@@ -1,9 +1,11 @@
-package dev.weiqi.hichysample
+package dev.weiqi.hichysample.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import dev.weiqi.hichy.Hichy
+import dev.weiqi.hichysample.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
             setOnClickListener {
                 val intent = Intent(this@MainActivity, SecondActivity::class.java)
                 startActivity(intent)
+                Hichy.init()
             }
         }
     }

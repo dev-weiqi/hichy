@@ -5,7 +5,7 @@
 
 Check Activity/Fragment hierarchy easier!
 
-## Install
+## Download
 
 project/build.gradle
 
@@ -34,7 +34,7 @@ class MyApplication : Application() {
     
     override fun onCreate() {
         super.onCreate()
-        Hichy.register(this)
+        Hichy.init(this)
     }
     
 }
@@ -42,11 +42,11 @@ class MyApplication : Application() {
 
 2. Launch app and click notification
 
-<img width="320" height="640" src="https://github.com/dev-weiqi/hichy/blob/main/screencapture1.png"/>
+<img width="320" height="640" src="https://github.com/dev-weiqi/hichy/blob/main/docs/image/screenshot1.png"/>
 
 3. Enjoy it!
 
-<img width="320" height="640" src="https://github.com/dev-weiqi/hichy/blob/main/screencapture2.png"/>
+<img width="320" height="640" src="https://github.com/dev-weiqi/hichy/blob/main/docs/image/screenshot2.png"/>
 
 ## **Contribution**
 
